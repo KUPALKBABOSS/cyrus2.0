@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Surprise Ako Sayo! 🎉</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6e6;
+            text-align: center;
+            padding: 50px;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: inline-block;
+            position: relative;
+            z-index: 10;
+            max-width: 90%;
+        }
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.4);
+        }
+        button:hover {
+            background-color: #c71585;
+            transform: scale(1.1);
+        }
+        #surprise {
+            display: none;
+            margin-top: 30px;
+            font-size: 24px;
+            color: #ff4d6d;
+            font-weight: bold;
+            animation: pop 0.5s ease-out;
+        }
+        .surprise-image {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        .heart {
+            position: fixed;
+            bottom: -10px;
+            font-size: 24px;
+            color: #ff4d6d;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-105vh) translateX(var(--randomX)) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Huy! May mensahe ako para sayo... 👇</h2>
+        <br>
+        <button id="btn" onclick="startSurprise()">Pindutin Mo Dito</button>
+        
+        <div id="surprise">
+            <img src="image_8QnF56.png" alt="Surprise Image" class="surprise-image"><br>
+            💖 Happy Halloween! <br>
+            ✨ May suman pa da! ✨
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="cyrus.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function startSurprise() {
+            document.getElementById('surprise').style.display = 'block';
+            var music = document.getElementById('bg-music');
+            music.play().catch(function(error) {
+                console.log("Audio play prevented: ", error);
+            });
+            document.getElementById('btn').style.display = 'none';
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            const randomX = (Math.random() - 0.5) * 200;
+            heart.style.setProperty('--randomX', randomX + 'px');
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+    </script>
+</body>
+</html>
